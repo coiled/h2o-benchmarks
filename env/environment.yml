@@ -1,0 +1,8 @@
+name: h2o_data
+channels:
+  - conda-forge
+dependencies:
+  - python=3.9
+  - numpy
+  - pandas
+  - dask

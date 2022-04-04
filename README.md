@@ -64,7 +64,7 @@ $ python create_groupby_data_dask.py -n 1e8 -k 1e2 -nf 100 -dir output_dir
 
 This results in 1000 files
 ```
-$ python create_groupby_data_dask.py -n 1e9 -k 1e2 -nf 1000 -dir output_dir
+$ python create_groupby_data.py -n 1e9 -k 1e2 -nf 1000 -dir output_dir
 ```
 
 **How to get a single file:**

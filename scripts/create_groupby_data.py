@@ -10,7 +10,7 @@ Example for 1e6 rows (N) and 100 groups (K)
 # This will create 10 files on a directory. If the directory provided
 # does not exists it will create it.
 
-$ python create_groupby_data_dask.py -n 1e6 -k 1e2 -nf 10 -dir test
+$ python create_groupby_data.py -n 1e6 -k 1e2 -nf 10 -dir test
 
 # If you want to join the files using bash you can do.
 # This will take care of the headers, only keep the first one.

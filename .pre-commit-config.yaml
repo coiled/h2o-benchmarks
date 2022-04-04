@@ -4,8 +4,6 @@ repos:
     hooks:
     - id: black
       language_version: python3
-      args:
-        - --target-version=py38
 -   repo: https://github.com/keewis/blackdoc
     rev: v0.3.4
     hooks:

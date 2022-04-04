@@ -130,7 +130,6 @@ if __name__ == "__main__":
     K = int(args.K)
     nfiles = args.nfiles
     dir = args.dir
-    i = range(nfiles)
 
     check_dir = os.path.isdir(dir)
 

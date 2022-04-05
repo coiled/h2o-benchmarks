@@ -8,7 +8,7 @@ This repository contains the scripts necessary to create the data for the h2o be
 - Create and activate the conda environment
     
      ```
-     conda env create -f env/environment.yml
+     conda env create -f environment.yml
 
      conda activate h2o_data
      ```

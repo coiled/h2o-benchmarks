@@ -5,146 +5,112 @@ Notes
 - This script generates multiple files in parallel using dask
 - If you desired one join file you can join them using bash.
 
-Example for 1e6 rows (N) and 100 groups (K)
+Example for 1e6 rows (num_rows) and 100 groups (num_groups)
 
 # This will create 10 files on a directory. If the directory provided
 # does not exists it will create it.
 
-$ python create_groupby_data.py -n 1e6 -k 1e2 -nf 10 -dir test
+$ python create_groupby_data.py --num-rows 1e6 --num-groups 1e2 --num-files 10 --output-dir test
 
 # If you want to join the files using please check instructions for
 # create_single_csv.py
 """
+import functools
 import os
+import pathlib
 import timeit
-from argparse import ArgumentParser
 
+import click
 import numpy as np
 import pandas as pd
 from dask.distributed import Client, wait
 
 
-def read_inputs():
-    """
-    Parse command-line arguments to run create_groupby_data.
-    User should provide:
-    -N : int | float,
-        Number of rows of the dataframe
-    -K : int | float
-        Number of groups
-    -nfiles : int
-        Number of output files
-    -output_dir : str,
-        Output directory.
-    """
-
-    parser = ArgumentParser(
-        description="Manage create_groupby_data command line arguments"
-    )
-
-    parser.add_argument(
-        "-n", "--N", dest="N", type=float, default=None, help="Total number fo rows"
-    )
-
-    parser.add_argument(
-        "-k", "--K", dest="K", type=float, default=None, help="Number of groups"
-    )
-
-    parser.add_argument(
-        "-nf",
-        "--nfiles",
-        dest="nfiles",
-        type=int,
-        default=None,
-        help="Number of output files",
-    )
-
-    parser.add_argument(
-        "-dir",
-        "--output_dir",
-        dest="dir",
-        type=str,
-        default="",
-        help="Output directory",
-    )
-
-    return parser.parse_args()
-
-
-def create_single_df(N, K, nfiles, dir, i):
-    """
-    Creates a single pandas dataframe that contains nrows=N/nfiles
+def create_file(
+    num_rows: int, num_groups: int, num_files: int, output_dir: pathlib.Path, i: int
+) -> None:
+    """Creates a single pandas dataframe that contains num_rows/num_files rows
 
     Parameters
     ----------
-    N: int,
-     Total number of rows
-    K: int,
-     Number of groups
-    nfiles: int,
-     Number of output files
-    dir: str,
-     Output directory
-    i: int,
-     Integer to assign to the multiple files e.g. range(nfiles)
+    num_rows: int
+        Total number of rows
+    num_groups: int
+        Number of groups
+    num_files: int
+        Number of output files
+    output_dir: str
+        Output directory
+    i: int
+        Integer to assign to the multiple files e.g. ``range(num_files)``
     """
 
-    nrows = int(N / nfiles)
+    sample_id12 = [f"id{str(x).zfill(3)}" for x in range(1, num_groups + 1)]
+    sample_id3 = [
+        f"id{str(x).zfill(10)}" for x in range(1, int(num_rows / num_groups) + 1)
+    ]
 
-    sample_id12 = [f"id{str(x).zfill(3)}" for x in range(1, K + 1)]
-    sample_id3 = [f"id{str(x).zfill(10)}" for x in range(1, int(N / K) + 1)]
+    size = int(num_rows / num_files)
+    data = {}
+    data["id1"] = np.random.choice(sample_id12, size=size, replace=True)
+    data["id2"] = np.random.choice(sample_id12, size=size, replace=True)
+    data["id3"] = np.random.choice(sample_id3, size=size, replace=True)
+    data["id4"] = np.random.choice(num_groups, size=size, replace=True)
+    data["id5"] = np.random.choice(num_groups, size=size, replace=True)
+    data["id6"] = np.random.choice(int(num_rows / num_groups), size=size, replace=True)
+    data["v1"] = np.random.choice(5, size=size, replace=True)
+    data["v2"] = np.random.choice(15, size=size, replace=True)
+    data["v3"] = np.random.uniform(0, 100, size=size)
+    df = pd.DataFrame(data)
 
-    id1 = np.random.choice(sample_id12, size=nrows, replace=True)
-    id2 = np.random.choice(sample_id12, size=nrows, replace=True)
-    id3 = np.random.choice(sample_id3, size=nrows, replace=True)
-    id4 = np.random.choice(K, size=nrows, replace=True)
-    id5 = np.random.choice(K, size=nrows, replace=True)
-    id6 = np.random.choice(int(N / K), size=nrows, replace=True)
-    v1 = np.random.choice(5, size=nrows, replace=True)
-    v2 = np.random.choice(15, size=nrows, replace=True)
-    v3 = np.random.uniform(0, 100, size=nrows)
-
-    df = pd.DataFrame(
-        dict(
-            zip(
-                [f"id{x}" for x in range(1, 7)] + ["v1", "v2", "v3"],
-                [id1, id2, id3, id4, id5, id6, v1, v2, v3],
-            )
-        )
+    output_file = (
+        output_dir / f"groupby-num_rows_{num_rows}-num_groups_{num_groups}-file_{i}.csv"
     )
-
     df.to_csv(
-        f"{dir}/groupby-N_{N}_K_{K}_file_{i}.csv",
+        output_file,
         index=False,
         float_format="{:.6f}".format,
     )
 
 
-if __name__ == "__main__":
+@click.command(context_settings={"ignore_unknown_options": True})
+@click.option(
+    "--num-rows",
+    type=int,
+    required=True,
+    help="Number of rows of the DataFrame",
+)
+@click.option(
+    "--num-groups",
+    type=int,
+    required=True,
+    help="Number of groups",
+)
+@click.option(
+    "--num-files",
+    type=int,
+    required=True,
+    help="Number of output files",
+)
+@click.option(
+    "--output-dir",
+    type=click.Path(file_okay=False, path_type=pathlib.Path),
+    required=True,
+    help="Output directory",
+)
+def main(num_rows, num_groups, num_files, output_dir):
 
-    args = read_inputs()
-
-    N = int(args.N)
-    K = int(args.K)
-    nfiles = args.nfiles
-    dir = args.dir
-
-    check_dir = os.path.isdir(dir)
-
-    if not check_dir:
-        os.makedirs(dir)
-        print(
-            f"The directory {dir} was created and data will be at {os.path.realpath(dir)}"
-        )
-    else:
-        print(f"The data will be located at {os.path.realpath(dir)}")
-
+    os.makedirs(output_dir, exist_ok=True)
     with Client() as client:
-        tic = timeit.default_timer()
+        t_start = timeit.default_timer()
         futures = client.map(
-            lambda i: create_single_df(N, K, nfiles, dir, i), range(nfiles)
+            functools.partial(create_file, num_rows, num_groups, num_files, output_dir),
+            range(num_files),
         )
         wait(futures)
-        toc = timeit.default_timer()
-        total_time = toc - tic
-        print(f"Creating this data took: {total_time:.2f} s")
+        total_time = timeit.default_timer() - t_start
+        print(f"Creating {num_files} files in {output_dir} took {total_time:.2f} s")
+
+
+if __name__ == "__main__":
+    main()

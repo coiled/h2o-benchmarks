@@ -12,10 +12,8 @@ Example for 1e6 rows (N) and 100 groups (K)
 
 $ python create_groupby_data.py -n 1e6 -k 1e2 -nf 10 -dir test
 
-# If you want to join the files using bash you can do.
-# This will take care of the headers, only keep the first one.
-
-$ awk '(NR == 1) || (FNR > 1)' test/groupby-N_1000000_K_100_file_*.csv > test/bigfile.csv
+# If you want to join the files using please check instructions for
+# create_single_csv.py
 """
 import os
 import timeit

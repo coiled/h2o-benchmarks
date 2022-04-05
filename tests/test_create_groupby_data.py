@@ -4,7 +4,6 @@ import subprocess
 import sys
 
 import dask.dataframe as dd
-import pandas as pd
 
 SCRIPT_GROUPBY_DATA = (
     pathlib.Path(__file__).parent.parent / "scripts" / "create_groupby_data.py"

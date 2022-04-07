@@ -1,5 +1,7 @@
 # H2O Benchmark Data
 
+[![Tests](https://github.com/coiled/h2o_benchmark_data/actions/workflows/tests.yml/badge.svg)](https://github.com/coiled/h2o_benchmark_data/actions/workflows/tests.yml) [![Linting](https://github.com/coiled/h2o_benchmark_data/actions/workflows/pre-commit.yml/badge.svg)](https://github.com/coiled/h2o_benchmark_data/actions/workflows/pre-commit.yml)
+
 This repository contains the scripts necessary to create the data for the h2o benchmark.
 
 ## Setup to create the data locally

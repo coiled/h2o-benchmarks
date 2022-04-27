@@ -93,7 +93,6 @@ python csv_to_parquet_data.py --csv-dir s3://coiled-datasets/h2o-benchmark/N_1e7
 
 ## Public data on S3:
 
-The following [S3 bucket](https://s3.console.aws.amazon.com/s3/buckets/coiled-datasets?region=us-east-2&prefix=h2o-benchmark/) contains the data to perform the h2o benchmark.We provide the single files for 
-every case (num_rows=1e7, 1e8, and 1e9) as well as a folder for each case that contains `num_files=10, 100, 1000` respectively.
+The following [S3 bucket](https://s3.console.aws.amazon.com/s3/buckets/coiled-datasets?region=us-east-2&prefix=h2o-benchmark/) contains the data to perform the h2o benchmark.We provide the single files for every case (num_rows=1e7, 1e8, and 1e9) as well as a folder for each case that contains `num_files=10, 100, 1000` respectively. Folders with `_parquet` contain the parquet files. 
 
 **S3 URI:** `s3://coiled-datasets/h2o-benchmark/`

@@ -82,9 +82,17 @@ $ python create_single_csv.py \
      --num-files 10
 ```
 
+### Parquet data sets
+
+If you want to create the equivalent parquet datasets, use the script `scripts/csv_to_parquet_data.py` which creates a `parquet` dataset based on the `csv` dataset provided.
+For example, for the case of `1e7` rows, the following command will take the folder that contains the `csv` files generated with `create_groupby_data.py` that we are hosting in S3, and will create a local directory named `test_parquet` that will have the corresponding parquet files for the case of `1e7` rows.
+
+```bash
+python csv_to_parquet_data.py --csv-dir s3://coiled-datasets/h2o-benchmark/N_1e7_K_1e2/ --output-dir test_parquet
+```
+
 ## Public data on S3:
 
-The following [S3 bucket](https://s3.console.aws.amazon.com/s3/buckets/coiled-datasets?region=us-east-2&prefix=h2o-benchmark/) contains the data to perform the h2o benchmark.We provide the single files for 
-every case (num_rows=1e7, 1e8, and 1e9) as well as a folder for each case that contains `num_files=10, 100, 1000` respectively.
+The following [S3 bucket](https://s3.console.aws.amazon.com/s3/buckets/coiled-datasets?region=us-east-2&prefix=h2o-benchmark/) contains the data to perform the h2o benchmark.We provide the single files for every case (num_rows=1e7, 1e8, and 1e9) as well as a folder for each case that contains `num_files=10, 100, 1000` respectively. Folders with `_parquet` contain the parquet files. 
 
 **S3 URI:** `s3://coiled-datasets/h2o-benchmark/`

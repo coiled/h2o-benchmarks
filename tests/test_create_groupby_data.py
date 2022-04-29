@@ -84,7 +84,7 @@ def test_simple_parquet(tmp_path):
             sys.executable,
             SCRIPT_CSV_TO_PARQUET_DATA,
             "--csv-dir",
-            str(tmp_path) + "/",
+            str(tmp_path),
             "--output-dir",
             str(tmp_path),
         ]

@@ -21,7 +21,7 @@ from dask.distributed import Client
 
 def get_parquet(csv_dir, output_dir):
     ddf = dd.read_csv(
-        os.path.join(csv_dir, "*.csv"),
+        csv_dir.rstrip("/") + "/*.csv"
         dtype={
             "id1": "category",
             "id2": "category",

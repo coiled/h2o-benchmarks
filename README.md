@@ -2,7 +2,7 @@
 
 [![Tests](https://github.com/coiled/h2o_benchmark_data/actions/workflows/tests.yml/badge.svg)](https://github.com/coiled/h2o_benchmark_data/actions/workflows/tests.yml) [![Linting](https://github.com/coiled/h2o_benchmark_data/actions/workflows/pre-commit.yml/badge.svg)](https://github.com/coiled/h2o_benchmark_data/actions/workflows/pre-commit.yml)
 
-This repository contains the scripts necessary to create the data for the h2o benchmark.
+This repository contains the scripts necessary to create the data for the h2o benchmark and performance reports for the `groupby` queries run using parquet data.
 
 ## Setup to create the data locally
 
@@ -96,3 +96,39 @@ python csv_to_parquet_data.py --csv-dir s3://coiled-datasets/h2o-benchmark/N_1e7
 The following [S3 bucket](https://s3.console.aws.amazon.com/s3/buckets/coiled-datasets?region=us-east-2&prefix=h2o-benchmark/) contains the data to perform the h2o benchmark.We provide the single files for every case (num_rows=1e7, 1e8, and 1e9) as well as a folder for each case that contains `num_files=10, 100, 1000` respectively. Folders with `_parquet` contain the parquet files. 
 
 **S3 URI:** `s3://coiled-datasets/h2o-benchmark/`
+
+## Performance reports
+
+This performance reports were obtained running the code in `h2o_benchamarks.ipynb`. Using `dask=2022.9.0`
+
+### 0.5 GB
+
+- [q1](https://rawcdn.githack.com/coiled/h2o-benchmarks/37f774a3c6589ea7bc7f91f06322b5f45383aa53/performance-reports/05GB/q1_data_05GB.html)
+- [q2](https://rawcdn.githack.com/coiled/h2o-benchmarks/37f774a3c6589ea7bc7f91f06322b5f45383aa53/performance-reports/05GB/q2_data_05GB.html)
+- [q3](https://rawcdn.githack.com/coiled/h2o-benchmarks/37f774a3c6589ea7bc7f91f06322b5f45383aa53/performance-reports/05GB/q3_data_05GB.html)
+- [q4](https://rawcdn.githack.com/coiled/h2o-benchmarks/37f774a3c6589ea7bc7f91f06322b5f45383aa53/performance-reports/05GB/q4_data_05GB.html)
+- [q5](https://rawcdn.githack.com/coiled/h2o-benchmarks/37f774a3c6589ea7bc7f91f06322b5f45383aa53/performance-reports/05GB/q5_data_05GB.html)
+- [q7](https://rawcdn.githack.com/coiled/h2o-benchmarks/37f774a3c6589ea7bc7f91f06322b5f45383aa53/performance-reports/05GB/q7_data_05GB.html)
+- [q8](https://rawcdn.githack.com/coiled/h2o-benchmarks/37f774a3c6589ea7bc7f91f06322b5f45383aa53/performance-reports/05GB/q8_data_05GB.html)
+- [q9](https://rawcdn.githack.com/coiled/h2o-benchmarks/37f774a3c6589ea7bc7f91f06322b5f45383aa53/performance-reports/05GB/q9_data_05GB.html)
+
+### 5 GB
+- [q1](https://rawcdn.githack.com/coiled/h2o-benchmarks/37f774a3c6589ea7bc7f91f06322b5f45383aa53/performance-reports/5GB/q1_data_5GB.html)
+- [q2](https://rawcdn.githack.com/coiled/h2o-benchmarks/37f774a3c6589ea7bc7f91f06322b5f45383aa53/performance-reports/5GB/q2_data_5GB.html)
+- [q3](https://rawcdn.githack.com/coiled/h2o-benchmarks/37f774a3c6589ea7bc7f91f06322b5f45383aa53/performance-reports/5GB/q3_data_5GB.html)
+- [q4](https://rawcdn.githack.com/coiled/h2o-benchmarks/37f774a3c6589ea7bc7f91f06322b5f45383aa53/performance-reports/5GB/q4_data_5GB.html)
+- [q5](https://rawcdn.githack.com/coiled/h2o-benchmarks/37f774a3c6589ea7bc7f91f06322b5f45383aa53/performance-reports/5GB/q5_data_5GB.html)
+- [q7](https://rawcdn.githack.com/coiled/h2o-benchmarks/37f774a3c6589ea7bc7f91f06322b5f45383aa53/performance-reports/5GB/q7_data_5GB.html)
+- [q8](https://rawcdn.githack.com/coiled/h2o-benchmarks/37f774a3c6589ea7bc7f91f06322b5f45383aa53/performance-reports/5GB/q8_data_5GB.html)
+- [q9](https://rawcdn.githack.com/coiled/h2o-benchmarks/37f774a3c6589ea7bc7f91f06322b5f45383aa53/performance-reports/5GB/q9_data_5GB.html)
+
+### 50 GB
+
+- [q1](https://rawcdn.githack.com/coiled/h2o-benchmarks/37f774a3c6589ea7bc7f91f06322b5f45383aa53/performance-reports/50GB/q1_data_50GB.html)
+- [q2](https://rawcdn.githack.com/coiled/h2o-benchmarks/37f774a3c6589ea7bc7f91f06322b5f45383aa53/performance-reports/50GB/q2_data_50GB.html)
+- [q3](https://rawcdn.githack.com/coiled/h2o-benchmarks/37f774a3c6589ea7bc7f91f06322b5f45383aa53/performance-reports/50GB/q3_data_50GB.html)
+- [q4](https://rawcdn.githack.com/coiled/h2o-benchmarks/37f774a3c6589ea7bc7f91f06322b5f45383aa53/performance-reports/50GB/q4_data_50GB.html)
+- [q5](https://rawcdn.githack.com/coiled/h2o-benchmarks/37f774a3c6589ea7bc7f91f06322b5f45383aa53/performance-reports/50GB/q5_data_50GB.htmlain/performance-reports/50GB/q4_data_50GB.html)
+- [q7](https://rawcdn.githack.com/coiled/h2o-benchmarks/37f774a3c6589ea7bc7f91f06322b5f45383aa53/performance-reports/50GB/q7_data_50GB.html)
+- [q8](https://rawcdn.githack.com/coiled/h2o-benchmarks/37f774a3c6589ea7bc7f91f06322b5f45383aa53/performance-reports/50GB/q8_data_50GB.html)
+- [q9](https://rawcdn.githack.com/coiled/h2o-benchmarks/37f774a3c6589ea7bc7f91f06322b5f45383aa53/performance-reports/50GB/q9_data_50GB.html)

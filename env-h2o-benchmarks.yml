@@ -1,0 +1,10 @@
+name: h2o_benchmarks
+channels:
+  - conda-forge
+dependencies:
+  - python=3.9
+  - dask=2022.9.0
+  - distributed=2022.9.0
+  - pyarrow=8.0.0
+  - coiled
+  - jupyterlab

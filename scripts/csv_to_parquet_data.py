@@ -25,7 +25,7 @@ def get_parquet(csv_dir, output_dir):
         dtype={
             "id1": "category",
             "id2": "category",
-            "id3": "category",
+            "id3": "string[python]",
             "id4": "Int32",
             "id5": "Int32",
             "id6": "Int32",

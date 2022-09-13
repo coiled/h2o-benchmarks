@@ -69,7 +69,7 @@ def test_simple_parquet(tmp_path):
         dtype={
             "id1": "category",
             "id2": "category",
-            "id3": "category",
+            "id3": "string[python]",
             "id4": "Int32",
             "id5": "Int32",
             "id6": "Int32",

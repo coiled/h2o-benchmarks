@@ -12,3 +12,4 @@ dask-worker-space/
 mydask.png
 .vscode/
 .history
+data/*

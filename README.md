@@ -97,6 +97,7 @@ The following [S3 bucket](https://s3.console.aws.amazon.com/s3/buckets/coiled-da
 
 **S3 URI:** `s3://coiled-datasets/h2o-benchmark/`  
 **S3 URI (id3 no categorical):** `s3://coiled-datasets/h2o-benchmark/id3_nocat/`
+**S3 URI 500GB with id1, id2, id3 as pyarrow strings:** `s3://coiled-datasets/h2o-benchmark/pyarrow_strings/N_1e10_K_1e2/` 
 
 ## Performance reports
 
